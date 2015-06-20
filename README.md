@@ -1,4 +1,4 @@
-ZenSoft.Macros.Demo
-===================
+Elixir Meetups - Mexico D.F. - 1st Meetup
+=========================================
 
-** TODO: Add description **
+Examples
