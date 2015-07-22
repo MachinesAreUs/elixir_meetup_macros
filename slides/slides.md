@@ -8,19 +8,8 @@ Agustín Ramos
 .bounce[![Elixir Logo](./img/elixir.png)]
 
 ---
-
-# ¿Qué pasa cuando programamos?
-
-- Escribimos datos
-- Codificados en un lenguaje determinado
-
----
-
-# Qué pasa cuando refactorizamos?
-
-- Reescribimos los datos
-- con el mismo código
-- con algún objetivo/ideal de calidad
+class: middle
+# Code is data
 
 ---
 
@@ -30,15 +19,9 @@ Agustín Ramos
   - esos datos son manipulados por otro programa.
   - los programas son escritos/manipulados por otros programas.
 
-- Consecuencias
-
 ---
 class: middle
-# Code is data
-
----
-class: middle
-# Macro's building blocks:
+# Macros building blocks:
 # quote & unquote
 
 ---
@@ -364,7 +347,7 @@ class: middle
 
 
 ---
-# Algunas 
+# Algunas consideraciones
 
 ---
 
