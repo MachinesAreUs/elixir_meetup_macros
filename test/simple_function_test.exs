@@ -20,9 +20,9 @@ defmodule SimpleFunctionTest do
       MultipleFunction.new_functions :hello, do: "ok"
     end
     
-    assert TestModule.hello_1 == "ok" 
-    assert TestModule.hello_2 == "ok" 
-    #assert TestModule.name == "ok" 
+    #assert TestModule.hello_1 == "ok" 
+    #assert TestModule.hello_2 == "ok" 
+    assert TestModule.name == "ok" 
   end
 
 end
