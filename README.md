@@ -1,4 +1,4 @@
-Elixir Meetups - Mexico D.F. - 1st Meetup
+Elixir Meetups - Mexico D.F. - 2nd Meetup
 =========================================
 
-Examples
+Examples and slides for 'Metaprograming with Ellxir' Workshop
