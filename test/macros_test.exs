@@ -30,18 +30,6 @@ defmodule MacrosTest do
     assert TestModule.hello == "world"
     assert TestModule.foo   == "bar"
   end
- 
-  test "define multiple functions through a singl macro call" do
-
-    defmodule TestModule do
-      require MultipleFunction
-      MultipleFunction.new_functions :hello, do: "ok"
-    end
-    
-    #assert TestModule.hello_1 == "ok" 
-    #assert TestModule.hello_2 == "ok" 
-    assert TestModule.name == "ok" 
-  end
 
   test "You can define methods for a module at compile time" do
     import StateMachine
