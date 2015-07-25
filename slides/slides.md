@@ -1,4 +1,4 @@
-class: center, middle, background-bottom-right
+class: center, middle, cover-slide
 # Metaprogramación en Elixir
 
 Agustín Ramos
@@ -12,12 +12,27 @@ class: middle
 # Code is data
 
 ---
+background-image: url(./img/code-as-data-twit.png)
 
-# Los programas son datos
+---
+class: center, middle
+## ¿Qué pasa si tu lenguaje de programación te permite manipular los programas de igual manera que cualquier otro dato?
 
-- Piensa qué pasa si...
-  - esos datos son manipulados por otro programa.
-  - los programas son escritos/manipulados por otros programas.
+---
+class: middle
+# Sin las macros, Elixir no existiría...
+
+---
+background-image: url(./img/elixir-early-history-depression.png)
+
+---
+background-image: url(./img/elixir-early-history-tinkering.png)
+
+---
+background-image: url(./img/elixir-early-history-legolang.png)
+
+---
+background-image: url(./img/elixir-early-history-nailedit.png)
 
 ---
 class: middle
@@ -199,7 +214,7 @@ end
 **2.** Todas las macros deben definirse **dentro de un módulo**.
 
 --
-**3.** Se espera que el cuerpo de una macro **devuelva un fragmento de AST**.
+**2.** Se espera que el cuerpo de una macro **devuelva un fragmento de AST**.
 
 --
 
@@ -277,8 +292,6 @@ end
 --
 
 ```elixir
-iex> c "lib/simple_method.ex"
-[MyModule, MyMacros]
 iex(5)> MyModule.hello
 "world"
 iex(6)> MyModule.foo
@@ -304,50 +317,50 @@ class: middle
 ---
 # stdlib
 
-En la stdlib, el uso de macros es interesante
-
-
----
-# Phoenix
-
+En la stdlib, el uso de macros es [interesante](https://docs.google.com/spreadsheets/d/11IZJIZyr2173wsOu7fu6DJoQ6YBH7f5C_nBn4mpYTZE/edit?usp=sharing)
 
 ---
 # Ecto
 
+--
 
----
-class: middle
-# Sin las macros, Elixir no existiría...
++ Ecto es el framework oficial  para acceder a bases de datos.
+--
 
----
-background-image: url(./img/elixir-early-history-depression.png)
++ Provee DSL's para:
+  - Modeladoude datos
+  - Migraciones de datos
+  - Queries
 
----
-background-image: url(./img/elixir-early-history-tinkering.png)
+--
 
----
-background-image: url(./img/elixir-early-history-legolang.png)
+```elixir
+defmodule MyApp.Comment do  
+  use Ecto.Model
+  import Ecto.Query
 
----
-background-image: url(./img/elixir-early-history-nailedit.png)
+  schema "comments" do
+    field :commenter, :string
+    field :title, :string
+    field :votes, :integer
 
+    belongs_to :post, MyApp.Post
+  end
+end  
+```
+--
+
+```elixir
+iex> query = from c in MyApp.Comment,
+iex>   join: p in assoc(c, :post),
+iex>  where: p.id == 1,
+iex> select: c
+iex> App.Repo.all query
+```
 
 ---
 class: middle
 # Y para tus propios DSLs...
-
----
-# Ejemplo 1: Data Driven Testing
-
-
-
----
-# Ejemplo 2: Routing DSL
-
-
-
----
-# Algunas consideraciones
 
 ---
 
