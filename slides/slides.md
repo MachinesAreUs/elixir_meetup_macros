@@ -364,4 +364,134 @@ class: middle
 # Y para tus propios DSLs...
 
 ---
+# Ejemplo: DSL de transiciones en una máquina de estados
 
+--
+
+```elixir
+defmodule StateMachine do
+  machine = [
+    running: {:pause,  :paused},
+    running: {:stop,   :stopped},
+    paused:  {:resume, :running}
+  ]
+
+  for {state, {action, new_state}} <- machine do
+    def unquote(action)(unquote(state)) do
+      unquote(new_state)
+    end
+  end
+
+  def initial, do: :running
+end
+```
+--
+
+```elixir
+iex> import StateMachine
+iex> initial
+:rung
+iex> initial |> pause |> resume
+:rung
+iex> initial |> pause |> resume |> stop
+:stopped
+```
+
+---
+# Ejemplo: Cliente del API de Github
+
+--
+
+```elixir
+defmodule Github do
+
+  HTTPotion.start
+
+  @username "MachinesAreUs"
+
+  "https://api.github.com/users/#{@username}/repos"
+    |> HTTPotion.get(["User-Agent": "Elixir"])
+    |> Map.get(:body)
+    |> Poison.decode!
+    |> Enum.each fn repo ->
+      def unquote(String.to_atom(repo["name"]))() do
+        unquote(Macro.escape(repo))
+      end
+    end
+
+  def go(repo) do
+    url = apply(__MODULE__, repo, [])["html_url"]
+    IO.puts "Launching browser to #{url}..."
+    System.cmd("open", [url])
+  end
+
+end
+```
+
+---
+# Ejemplo: Cliente del API de Github
+
+```elixir
+iex> Github.
+Albacore/0                          Hystrix/0
+RubySwing/0                         VizMyType/0
+codeeval/0                          elixir_meetup_macros/0
+...
+```
+--
+
+```elixir
+iex> repo = Github.elixir_meetup_macros
+%{"archive_url" => "https:/api.github.com/repos/MachinesAreUs/...
+...
+```
+--
+
+```elixir
+iex> Map.get repo, "html_url"
+"https://github.com/MachinesAreUs/elixir_meetup_macros"
+```
+--
+
+```elixir
+iex> Github.go :elixir_meetup_macros
+```
+
+---
+# Ejemplo de proyecto real
+
+```elixir
+news_extractor :EFE,
+  headline:       [xpath: "NewsItem/NewsComponent/NewsLines/HeadLine"],
+  copyright_line: [xpath: "NewsItem/NewsComponent/NewsLines/CopyrightLine"],
+  creation_date:  [xpath: "NewsItem/Identification/NewsIdentifier/DateId", with: :to_date, args: "%Y-%m-%d %H:%M:%S%z"],
+  body:           [xpath: "NewsItem/NewsComponent/ContentItem/DataContent/body/body.content"],
+  provider:       [literal: "EFE"] 
+```
+--
+
+```elixir
+iex> {:ok, xml_str} = "saple_news.xml" |> File.Read 
+iex> xml_str |> EFE.extract
+```
+--
+
+```elixir
+%NewsItem{__meta__: %Ecto.Schema.Metadata{source: "newsitems", state: :loaded},
+  headline: "El gobierno de EU puede ver fotos de desnudos, segun Edward Snowden",
+  body: "John Oliver, comediante de la cadena de television HBO, dio su mejor golpe hasta el momento: una entrevista a profundidad con Edward Snowden, excontratista de la Agencia Nacional de Seguridad (NSA, por sus siglas en ingles) de Estados Unidos.",
+  creation_date: #Ecto.DateTime<2015-07-17T06:13:05Z>, 
+  provider: "EFE"
+  copyright_line: "© EFE 2015. Está expresamente prohibida la redistribución y la redifusión de todo o parte de los contenidos de los servicios de Efe, sin previo y expreso consentimiento de la Agencia EFE S.A."}
+```
+
+---
+class: center, middle, cover-slide
+
+# ¡Happy Elixir coding!
+
+Agustín Ramos
+
+@MachinesAreUs
+
+.bounce[![Elixir Logo](./img/elixir.png)]
