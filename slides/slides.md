@@ -390,9 +390,9 @@ end
 ```elixir
 iex> import StateMachine
 iex> initial
-:rung
-iex> initial |> pause |> resume
-:rung
+:running
+iex> initial |> pause
+:paused
 iex> initial |> pause |> resume |> stop
 :stopped
 ```
