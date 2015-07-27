@@ -73,7 +73,7 @@ iex> ast = quote do: 1 * 3 + 10 / 2
 # unquote
 
 --
-**`unquote`** solo puede utilizarse dentro de un bloque `quote`, y sirve para insertar un fragmento de AST dentro del bloque que se está **`quoteando`** (bad spanish).
+**`unquote`** solo puede utilizarse dentro de un bloque `quote`, y sirve para insertar un fragmento de AST dentro del bloque que se está **`quoteando`** (bad spanglish).
 
 --
 
@@ -96,7 +96,7 @@ iex> func_ast = quote do: fn(x) -> x*2 end
 ---
 # unquote
 
-**`unquote`** solo puede utilizarse dentro de un bloque `quote`, y sirve para insertar un fragmento de AST dentro del bloque que se está **`quoteando`** (bad spanish).
+**`unquote`** solo puede utilizarse dentro de un bloque `quote`, y sirve para insertar un fragmento de AST dentro del bloque que se está **`quoteando`** (bad spanglish).
 
 --
 
@@ -214,7 +214,8 @@ end
 **2.** Todas las macros deben definirse **dentro de un módulo**.
 
 --
-**2.** Se espera que el cuerpo de una macro **devuelva un fragmento de AST**.
+
+**3.** Se espera que el cuerpo de una macro **devuelva un fragmento de AST**.
 
 --
 
@@ -229,7 +230,7 @@ defmodule MyModule do
 end
 ```
 --
-**4.** **Importante**: los parámetros que recibe el cuerpo de la macro vienen en forma de AST.
+**4.** **Importante**: los parámetros que recibe el cuerpo de la macro vienen en forma de AST (quoted).
 
 ---
 # Uso de una macro
